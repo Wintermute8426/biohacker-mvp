@@ -1,19 +1,22 @@
 {
   "expo": {
-    "name": "biohacker-mvp",
-    "slug": "biohacker-mvp",
+    "name": "Biohacker",
+    "slug": "biohacker",
     "version": "1.0.0",
+    "projectId": "185f955c-8484-4f3f-b0b1-fa7c9f88f6c7",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "biohackermvp",
-    "userInterfaceStyle": "automatic",
+    "scheme": "biohacker",
+    "userInterfaceStyle": "dark",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false,
+      "bundleIdentifier": "com.biohacker.app"
     },
     "android": {
+      "package": "com.biohacker.app",
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
+        "backgroundColor": "#000000",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
@@ -43,6 +46,13 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "185f9553-abe4-4796-bece-dc6e9b3cb5af"
+      }
+    },
+    "owner": "rooz-wintermute"
   }
 }
