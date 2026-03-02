@@ -1,0 +1,49 @@
+name: Build APK
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build APK with EAS
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: |
+          npm install -g eas-cli
+          eas build --platform android --non-interactive
+      
+      - name: Download APK
+        run: |
+          # EAS outputs APK to .eas directory
+          find . -name "*.apk" -type f
+      
+      - name: Upload APK as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: biohacker-apk
+          path: '**/*.apk'
+      
+      - name: Upload to transfer.sh
+        if: always()
+        run: |
+          APK=$(find . -name "*.apk" -type f | head -1)
+          if [ ! -z "$APK" ]; then
+            curl --upload-file "$APK" https://transfer.sh/biohacker-mvp.apk
+            echo "APK uploaded!"
+          fi
